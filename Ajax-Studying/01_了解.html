@@ -5,8 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="./lib/jquery.js"></script>
 </head>
 <body>
-    
+    <button class="btn-get">发起不带参数的GET请求</button>
+    <button class="btn-get2">发起带参数的GET请求</button>
+    <button class="btn-post">发送数据到服务器</button>
+    <script>
+        $(function(){
+            $(".btn-get").on("click",function(){
+                $.get("http://www.liulongbin.top:3006/api/getbooks",function(res){
+                    console.log(res);
+                })
+            });
+
+            $(".btn-get2").on("click",function(){
+                $.get("http://www.liulongbin.top:3006/api/getbooks",{id:1},function(res){
+                    console.log(res);
+                })
+            });
+
+            $(".btn-post").on("click",function(){
+                $.post("http://www.liulongbin.top:3006/api/addbook",{bookname:"水浒传",author:"施耐庵",publisher:"出版社"},function(res){
+                    console.log(res);
+                })
+            });
+
+
+        });
+    </script>
 </body>
 </html>
