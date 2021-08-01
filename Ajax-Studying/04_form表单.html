@@ -5,13 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="./lib/jquery.js"></script>
 </head>
 <body>
-    <form action="/login" target="_blank">
+    <!-- <form action="/login" target="_blank" method="GET">
+        <input type="text" name="email" id="" placeholder="输入账号"> 
+        <input type="password" name="password" id="" placeholder="输入密码">
+        <button type="submit">提交</button>
+    </form> -->
+
+    <!-- 通过ajax提交 -->
+    <form action="/login">
         <input type="text" name="email" id="" placeholder="输入账号"> 
         <input type="password" name="password" id="" placeholder="输入密码">
         <button type="submit">提交</button>
     </form>
+
+    <script>
+        $(function(){
+            // $("form").submit(function(){
+            //     alert(11);
+            // });
+
+            // 方式二
+            $("form").on("submit",function(e){
+                alert(22);
+
+                //阻止表单默认提交行为
+                e.preventDefault();
+
+                // 获取input表单的数据
+                const data = $(this).serialize();
+                console.log(data);
+            })
+        })
+    </script>
     
 </body>
 </html>

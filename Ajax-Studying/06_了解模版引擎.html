@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/template-web.js"></script>
+    <script src="./lib/jquery.js"></script>
+</head>
+<body>
+    <h1 class="show"></h1>
+
+    <script type="text/html" id="tpl-user">
+        <h1>{{name}}</h1>
+
+        <!-- 输出原文 -->
+        {{@text}}
+
+        <!-- 条件输出 -->
+        <div>
+            {{if number===50}}
+            等于五十 
+            {{else if number!==50}} 
+            不等于五十
+            {{/if}}  
+        </div>
+        
+
+        <!-- 循环输出 -->
+        <ul>
+            {{each hobby}}
+                <li>{{$index}}: {{$value}}</li>
+            {{/each}} 
+        </ul>
+
+        <!-- 过滤器 -->
+        <h3>
+            {{regTime | dateFormat}}
+        </h3>
+
+        
+    </script>
+    
+    
+    <script>
+         template.defaults.imports.dateFormat = function(date){
+            let y = date.getFullYear();
+            let m = date.getMonth() + 1;
+            let d = date.getDate(); 
+
+            return y + "-" + m + "-" + d;
+        }
+
+        const data = {
+            name: "Eric",
+            text: "<h3>测试</h3>",
+            number: 100,
+            hobby:['吃饭','睡觉','玩手机'],
+            regTime: new Date()
+            
+        }
+
+        let test = template("tpl-user",data);
+
+       
+
+        const show = document.querySelector(".show")
+        show.innerHTML = test;
+
+
+        
+
+        
+    </script>
+</body>
+</html>
