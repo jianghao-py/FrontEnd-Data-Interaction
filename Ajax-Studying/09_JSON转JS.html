@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery.js"></script>
+</head>
+<body>
+
+    <script>
+        // json转js
+        let data = '{"a":"hello","b":"world"}';
+        let dataNew = JSON.parse(data);
+        console.log(dataNew);
+
+        // js转json
+        let obj = {
+            a: "eirc",
+            age:22
+        }
+
+        let jsonStr = JSON.stringify(obj);
+        console.log(jsonStr);
+    </script>
+    
+</body>
+</html>
