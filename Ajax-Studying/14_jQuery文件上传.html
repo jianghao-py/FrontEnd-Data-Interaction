@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    
+    <style>
+        img{
+            display: none;
+            margin: 100px auto;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <input type="file" id="file1">
+
+    <button id="upload">上传</button>
+
+   
+    <br>
+
+   
+
+    <script>
+        $(function(){
+            $("#upload").on("click",function(){
+                let files = $("#file1")[0].files;
+                if(files.length <= 0){
+                    return alert("选择文件");
+                }
+
+                let fd = new FormData();
+                fd.append("avatar",files[0]);
+
+                $.ajax({
+                    method:"POST",
+                    url:"http://www.liulongbin.top:3006/api/upload/avatar",
+                    data: fd,
+                    processData:false,
+                    contentType:false,
+                    success:function(res){
+                        console.log(res);
+                    }
+                })
+            })
+        })
+    </script>
+    
+</body>
+</html>
