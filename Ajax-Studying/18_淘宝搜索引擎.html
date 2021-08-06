@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/template-web.js"></script>
+    <style>
+        img{
+            display: block;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+
+        .outer{
+            width: 800px;
+            margin: 80px auto;
+        }
+
+        .inner{
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        input{
+            width: 400px;
+            height: 25px;
+            outline: none;
+            border: 2px solid orangered;
+            border-right: none;
+            float: left;
+        }
+
+        button{
+            width: 94px;
+            height: 31px;
+            outline: none;
+            border: 2px solid orangered;
+            border-left: none;
+            background-color: orangered;
+        }
+
+        .tab-bar span:first-child{
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: orangered;
+            font-size: 12px;
+            
+        }
+
+        .tab-bar span:last-child{
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            
+            font-size: 12px;
+        }
+
+        .suggest-list{
+            border:1px solid gray;
+            display: none;
+        }
+
+        #items{
+            font-size: 12px;
+            line-height: 30px;
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <img src="./lib/taobao_logo.png" alt="">
+
+    <div class="outer">
+        <div class="inner">
+            <div class="tab-bar">
+                <span>宝贝</span>
+                
+                <span>店铺</span>
+            </div>
+            
+            <input id="ipt" type="text" placeholder="输入：">
+            <button>搜索</button>
+
+            <div class="suggest-list">
+
+            </div>
+        </div>
+        
+    </div>
+
+    <script type="text/html" id="tpl">
+        {{each result}}
+            <div id="items">{{$value[0]}}</div>
+
+        {{/each}}
+    </script>
+
+    <script>
+        $(function(){
+            $("#ipt").on("keyup",function(){
+                let keywords = $(this).val().trim();
+
+                if(keywords.length <= 0){
+                    return $('.suggest-list').empty().hide();
+                }
+
+                getList(keywords);
+            })
+
+            function getList(kw){
+                $.ajax({
+                    url:'https://suggest.taobao.com/sug?q=' + kw,
+                    dataType:'jsonp',
+                    success:function(res){
+                        console.log(res);
+                        readList(res);
+                    }
+                })
+
+            }
+
+            function readList(res){
+                if(res.result.length <= 0){
+                    return $(".suggest-list").empty().hide();
+                }
+                let htmlData = template('tpl',res);
+
+                $(".suggest-list").html(htmlData).show();
+
+            }
+        })
+        
+    </script>
+
+
+</body>
+</html>
